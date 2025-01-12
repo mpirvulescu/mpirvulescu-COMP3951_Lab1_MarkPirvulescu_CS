@@ -14,15 +14,20 @@ namespace InvestmentCalculator
         public Form1()
         {
             InitializeComponent();
+
+            Center_Control(label1);
+            Center_Control(label2);
+            Center_Control(label3);
+            Center_Control(Initial_Investment_Box);
+            Center_Control(Rate_Of_Growth_Box);
+            Center_Control(Years_Of_Growth_Box);
+            Center_Control(Calculate_Button);
+            Center_Control(Compound_Interest_Result_Box);
             this.myInvestment = new Investment(0, 0, 0);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            label1.Text = "Enter the amount you want to invest";
-            label2.Text = "Enter the rate at which this index is supposed to grow at";
-            label3.Text = "Enter the amount of years of growth";
-            button1.Text = "Calculate!";
         }
 
         private void Initial_Investment_Box_Leave(object sender, EventArgs e)
@@ -79,7 +84,7 @@ namespace InvestmentCalculator
             }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void Calculate_Button_Click(object sender, EventArgs e)
         {
             string errorMessages = errorMessagesInitialInvestmentBox + errorMessageRateOfGrowthBox + errorMessageYearsOfGrowthBox;
             if (!string.IsNullOrEmpty(errorMessages))
@@ -91,6 +96,9 @@ namespace InvestmentCalculator
             {
                 double finalAmount = myInvestment.CalculateInvestmentReturn();
                 Compound_Interest_Result_Box.Text = $"After {myInvestment.YearsOfGrowth} years, your investment will grow to {finalAmount:C}.";
+
+                Center_Control(Compound_Interest_Result_Box);
+
             }
         }
 
@@ -99,7 +107,18 @@ namespace InvestmentCalculator
             Initial_Investment_Box.Text = "";
             Rate_Of_Growth_Box.Text = "";
             Years_Of_Growth_Box.Text = "";
+            Compound_Interest_Result_Box.Text = "See your result here!";
+            Center_Control(Compound_Interest_Result_Box);
             myInvestment = new Investment(0, 0, 0);
+        }
+
+        private void Center_Control(Control control)
+        {
+            int parentWidth = this.ClientSize.Width;
+            int resultLabelWidth = control.Width;
+            control.Location = new Point(
+                (parentWidth - resultLabelWidth) / 2,
+                control.Location.Y);
         }
     }  
 }
