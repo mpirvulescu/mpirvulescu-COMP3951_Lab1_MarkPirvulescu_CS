@@ -35,8 +35,6 @@
             Years_Of_Growth_Box = new TextBox();
             Calculate_Button = new Button();
             label1 = new Label();
-            Compound_Interest_Result_Box = new Label();
-            Reset_Button = new Button();
             SuspendLayout();
             // 
             // Initial_Investment_Box
@@ -105,32 +103,11 @@
             label1.Text = "Enter the amount you want to invest";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // Compound_Interest_Result_Box
-            // 
-            Compound_Interest_Result_Box.AutoSize = true;
-            Compound_Interest_Result_Box.Location = new Point(322, 371);
-            Compound_Interest_Result_Box.Name = "Compound_Interest_Result_Box";
-            Compound_Interest_Result_Box.Size = new Size(113, 15);
-            Compound_Interest_Result_Box.TabIndex = 8;
-            Compound_Interest_Result_Box.Text = "See your result here!";
-            // 
-            // Reset_Button
-            // 
-            Reset_Button.Location = new Point(564, 334);
-            Reset_Button.Name = "Reset_Button";
-            Reset_Button.Size = new Size(75, 23);
-            Reset_Button.TabIndex = 9;
-            Reset_Button.Text = "Reset";
-            Reset_Button.UseVisualStyleBackColor = true;
-            Reset_Button.Click += Reset_Button_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(Reset_Button);
-            Controls.Add(Compound_Interest_Result_Box);
             Controls.Add(label1);
             Controls.Add(Calculate_Button);
             Controls.Add(Years_Of_Growth_Box);
@@ -140,7 +117,7 @@
             Controls.Add(Initial_Investment_Box);
             Name = "Form1";
             Text = "Investment Calculator";
-            Load += Form1_Load;
+            Activated += Form1_Activate;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -156,7 +133,5 @@
         private TextBox Years_Of_Growth_Box;
         private Button Calculate_Button;
         private Label label1;
-        private Label Compound_Interest_Result_Box;
-        private Button Reset_Button;
     }
 }

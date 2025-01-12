@@ -7,13 +7,14 @@ namespace InvestmentCalculator
     {
 
         Investment myInvestment;
-        string errorMessagesInitialInvestmentBox = "Please enter the investment value\n";
-        string errorMessageRateOfGrowthBox = "Please enter a value for the rate of growth\n";
-        string errorMessageYearsOfGrowthBox = "Please enter a value for the number of years\n";
+        string errorMessagesInitialInvestmentBox;
+        string errorMessageRateOfGrowthBox;
+        string errorMessageYearsOfGrowthBox;
 
         public Form1()
         {
             InitializeComponent();
+            Initialize_Error_Messages();
 
             Center_Control(label1);
             Center_Control(label2);
@@ -22,12 +23,16 @@ namespace InvestmentCalculator
             Center_Control(Rate_Of_Growth_Box);
             Center_Control(Years_Of_Growth_Box);
             Center_Control(Calculate_Button);
-            Center_Control(Compound_Interest_Result_Box);
-            this.myInvestment = new Investment(0, 0, 0);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Activate(object sender, EventArgs e)
         {
+            Initialize_Error_Messages();
+            this.myInvestment = new Investment(0, 0, 0);
+            Initial_Investment_Box.Text = "";
+            Rate_Of_Growth_Box.Text = "";
+            Years_Of_Growth_Box.Text = "";
+
         }
 
         private void Initial_Investment_Box_Leave(object sender, EventArgs e)
@@ -94,23 +99,13 @@ namespace InvestmentCalculator
             }
             else
             {
-                double finalAmount = myInvestment.CalculateInvestmentReturn();
-                Compound_Interest_Result_Box.Text = $"After {myInvestment.YearsOfGrowth} years, your investment will grow to {finalAmount:C}.";
-
-                Center_Control(Compound_Interest_Result_Box);
-
+                Form2 graphForm = new Form2(myInvestment, this);
+                graphForm.Show();
+                Hide();
             }
         }
 
-        private void Reset_Button_Click(object sender, EventArgs e)
-        {
-            Initial_Investment_Box.Text = "";
-            Rate_Of_Growth_Box.Text = "";
-            Years_Of_Growth_Box.Text = "";
-            Compound_Interest_Result_Box.Text = "See your result here!";
-            Center_Control(Compound_Interest_Result_Box);
-            myInvestment = new Investment(0, 0, 0);
-        }
+        
 
         private void Center_Control(Control control)
         {
@@ -119,6 +114,13 @@ namespace InvestmentCalculator
             control.Location = new Point(
                 (parentWidth - resultLabelWidth) / 2,
                 control.Location.Y);
+        }
+
+        private void Initialize_Error_Messages()
+        {
+             errorMessagesInitialInvestmentBox = "Please enter the investment value\n";
+             errorMessageRateOfGrowthBox = "Please enter a value for the rate of growth\n";
+             errorMessageYearsOfGrowthBox = "Please enter a value for the number of years\n";
         }
     }  
 }
