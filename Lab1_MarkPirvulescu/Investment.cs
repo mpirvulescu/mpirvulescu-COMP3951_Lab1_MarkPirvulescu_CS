@@ -9,11 +9,11 @@ namespace InvestmentCalculator
     public class Investment
     {
 
-        private readonly double initialInvestment;
-        private readonly double rateOfGrowth;
-        private readonly double yearsOfGrowth;
+        private double initialInvestment;
+        private double rateOfGrowth;
+        private int yearsOfGrowth;
 
-        public Investment(double initialInvestment, double rateOfGrowth, double yearsOfGrowth)
+        public Investment(double initialInvestment, double rateOfGrowth, int yearsOfGrowth)
         {
             this.initialInvestment = initialInvestment;
             this.rateOfGrowth = rateOfGrowth;
@@ -22,17 +22,52 @@ namespace InvestmentCalculator
 
         public double InitialInvestment
         {
-            get
-            {
-                return initialInvestment;
+            get 
+            { 
+                return initialInvestment; 
             }
-            private set
+            set
             {
-                if (initialInvestment < 0)
+                if (value < 0)
                 {
-                    MessageBox.Show("Initial investment cannot be lower than $0.00");
+                    throw new ArgumentException("Initial investment cannot be negative.");
                 }
+                initialInvestment = value;
             }
         }
+
+        public double RateOfGrowth
+        {
+            get 
+            { 
+                return rateOfGrowth; 
+            }
+            set
+            {
+                if (value < 0 || value > 100)
+                {
+                    throw new ArgumentException("Rate of growth must be between 0 and 100.");
+                }
+                rateOfGrowth = value;
+            }
+        }
+
+        public int YearsOfGrowth
+        {
+            get 
+            { 
+                return yearsOfGrowth; 
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Years of growth cannot be negative.");
+                }
+                yearsOfGrowth = value;
+            }
+        }
+
+    //    public double CalculateInvestmentReturn
     }
 }
