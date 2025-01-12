@@ -1,4 +1,4 @@
-﻿namespace Lab1_MarkPirvulescu
+﻿namespace InvestmentCalculator
 {
     partial class Form1
     {

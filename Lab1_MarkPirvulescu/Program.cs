@@ -1,6 +1,6 @@
 
 
-namespace Lab1_MarkPirvulescu
+namespace InvestmentCalculator
 {
     internal static class Program
     {

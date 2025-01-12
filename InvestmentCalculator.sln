@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab1_MarkPirvulescu", "Lab1_MarkPirvulescu\Lab1_MarkPirvulescu.csproj", "{9D50530F-5952-4E39-A423-56270CA9DE8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentCalculator", "Lab1_MarkPirvulescu\InvestmentCalculator.csproj", "{9D50530F-5952-4E39-A423-56270CA9DE8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

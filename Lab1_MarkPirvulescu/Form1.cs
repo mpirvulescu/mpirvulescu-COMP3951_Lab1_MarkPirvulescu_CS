@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Lab1_MarkPirvulescu
+namespace InvestmentCalculator
 {
     public partial class Form1 : Form
     {
