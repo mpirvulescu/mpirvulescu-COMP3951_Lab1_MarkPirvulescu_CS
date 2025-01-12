@@ -20,10 +20,19 @@ namespace InvestmentCalculator
             this.yearsOfGrowth = yearsOfGrowth;
         }
 
-        private static void ValidateInitialInvestment(double initialInvestment)
+        public double InitialInvestment
         {
-
+            get
+            {
+                return initialInvestment;
+            }
+            private set
+            {
+                if (initialInvestment < 0)
+                {
+                    MessageBox.Show("Initial investment cannot be lower than $0.00");
+                }
+            }
         }
-
     }
 }
