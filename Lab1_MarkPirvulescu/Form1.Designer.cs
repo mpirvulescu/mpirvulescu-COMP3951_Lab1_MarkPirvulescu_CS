@@ -35,6 +35,8 @@
             Years_Of_Growth_Box = new TextBox();
             button1 = new Button();
             label1 = new Label();
+            Compound_Interest_Result_Box = new Label();
+            Reset_Button_Click = new Button();
             SuspendLayout();
             // 
             // Initial_Investment_Box
@@ -101,11 +103,31 @@
             label1.TabIndex = 7;
             label1.Text = "label1";
             // 
+            // Compound_Interest_Result_Box
+            // 
+            Compound_Interest_Result_Box.AutoSize = true;
+            Compound_Interest_Result_Box.Location = new Point(355, 371);
+            Compound_Interest_Result_Box.Name = "Compound_Interest_Result_Box";
+            Compound_Interest_Result_Box.Size = new Size(38, 15);
+            Compound_Interest_Result_Box.TabIndex = 8;
+            Compound_Interest_Result_Box.Text = "label4";
+            // 
+            // Reset_Button_Click
+            // 
+            Reset_Button_Click.Location = new Point(529, 371);
+            Reset_Button_Click.Name = "Reset_Button_Click";
+            Reset_Button_Click.Size = new Size(75, 23);
+            Reset_Button_Click.TabIndex = 9;
+            Reset_Button_Click.Text = "button2";
+            Reset_Button_Click.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(Reset_Button_Click);
+            Controls.Add(Compound_Interest_Result_Box);
             Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(Years_Of_Growth_Box);
@@ -131,5 +153,7 @@
         private TextBox Years_Of_Growth_Box;
         private Button button1;
         private Label label1;
+        private Label Compound_Interest_Result_Box;
+        private Button Reset_Button_Click;
     }
 }

@@ -68,6 +68,10 @@ namespace InvestmentCalculator
             }
         }
 
-    //    public double CalculateInvestmentReturn
+        public double CalculateInvestmentReturn()
+        {
+            // Compound interest formula: A = P * (1 + r/100)^t
+            return InitialInvestment * Math.Pow(1 + RateOfGrowth / 100, YearsOfGrowth);
+        }
     }
 }

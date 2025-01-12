@@ -89,8 +89,17 @@ namespace InvestmentCalculator
             }
             else
             {
-
+                double finalAmount = myInvestment.CalculateInvestmentReturn();
+                Compound_Interest_Result_Box.Text = $"After {myInvestment.YearsOfGrowth} years, your investment will grow to {finalAmount:C}.";
             }
+        }
+
+        private void Reset_Button_Click(object sender, EventArgs e)
+        {
+            Initial_Investment_Box.Text = "";
+            Rate_Of_Growth_Box.Text = "";
+            Years_Of_Growth_Box.Text = "";
+            myInvestment = new Investment(0, 0, 0);
         }
     }  
 }
