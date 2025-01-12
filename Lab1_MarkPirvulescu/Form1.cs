@@ -15,7 +15,7 @@ namespace InvestmentCalculator
         {
             InitializeComponent();
             Initialize_Error_Messages();
-
+            this.myInvestment = new Investment(0, 0, 0);
             Center_Control(label1);
             Center_Control(label2);
             Center_Control(label3);
@@ -27,12 +27,15 @@ namespace InvestmentCalculator
 
         private void Form1_Activate(object sender, EventArgs e)
         {
+        }
+
+        public virtual void OnShown(EventArgs e)
+        {
             Initialize_Error_Messages();
             this.myInvestment = new Investment(0, 0, 0);
             Initial_Investment_Box.Text = "";
             Rate_Of_Growth_Box.Text = "";
             Years_Of_Growth_Box.Text = "";
-
         }
 
         private void Initial_Investment_Box_Leave(object sender, EventArgs e)
@@ -95,6 +98,18 @@ namespace InvestmentCalculator
             if (!string.IsNullOrEmpty(errorMessages))
             {
                 MessageBox.Show(errorMessages, "Input Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!string.IsNullOrEmpty(errorMessagesInitialInvestmentBox))
+                {
+                    Initial_Investment_Box.Text = "";
+                }
+                if (!string.IsNullOrEmpty(errorMessageRateOfGrowthBox))
+                {
+                    Rate_Of_Growth_Box.Text = "";
+                }
+                if (!string.IsNullOrEmpty(errorMessageYearsOfGrowthBox))
+                {
+                    Years_Of_Growth_Box.Text = "";
+                }
                 return;
             }
             else
