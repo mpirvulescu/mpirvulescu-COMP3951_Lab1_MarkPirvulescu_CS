@@ -30,16 +30,13 @@ namespace InvestmentCalculator
 
         private void Form1_Activate(object sender, EventArgs e)
         {
-            // Reset fields
             Initial_Investment_Box.Text = "";
             Rate_Of_Growth_Box.Text = "";
             Years_Of_Growth_Box.Text = "";
             Inflation_Adjustment_Box.Text = "";
 
-            // Reset error messages
             Initialize_Error_Messages();
 
-            // Reset investment object
             this.myInvestment = new Investment(0, 0, 0, 0);
         }
 
