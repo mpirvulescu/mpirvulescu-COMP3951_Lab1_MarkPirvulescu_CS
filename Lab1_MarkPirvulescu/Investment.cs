@@ -12,12 +12,14 @@ namespace InvestmentCalculator
         private double initialInvestment;
         private double rateOfGrowth;
         private int yearsOfGrowth;
+        private double inflationRate;
 
-        public Investment(double initialInvestment, double rateOfGrowth, int yearsOfGrowth)
+        public Investment(double initialInvestment, double rateOfGrowth, int yearsOfGrowth, double inflationRate)
         {
             this.initialInvestment = initialInvestment;
             this.rateOfGrowth = rateOfGrowth;
             this.yearsOfGrowth = yearsOfGrowth;
+            this.inflationRate = inflationRate;
         }
 
         public double InitialInvestment
@@ -68,10 +70,40 @@ namespace InvestmentCalculator
             }
         }
 
-        public double CalculateInvestmentReturn()
+        public double InflationRate
         {
-            // Compound interest formula: A = P * (1 + r/100)^t
-            return InitialInvestment * Math.Pow(1 + RateOfGrowth / 100, YearsOfGrowth);
+            get 
+            { 
+                return inflationRate; 
+            }
+            set
+            {
+                if (value < 0 || value > 100)
+                {
+                    throw new ArgumentException("Inflation rate must be between 0 and 100.");
+                }
+                inflationRate = value;
+            }
+        }
+
+        public List<(int year, double investmentValue, double realValue)> GetYearlyInvestmentDetails()
+        {
+            List<(int, double, double)> yearlyDetails = new List<(int, double, double)>();
+
+            double currentInvestment = InitialInvestment;
+            for (int year = 1; year <= YearsOfGrowth; year++)
+            {
+                // Calculate the nominal investment value for this year (Compound interest formula)
+                currentInvestment += currentInvestment * (RateOfGrowth / 100);
+
+                // Calculate the inflation-adjusted value after growth for this year
+                double inflationAdjustedValue = currentInvestment / Math.Pow(1 + InflationRate / 100, year);
+
+                // Add the year, investment value, and inflation-adjusted value to the list
+                yearlyDetails.Add((year, currentInvestment, inflationAdjustedValue));
+            }
+
+            return yearlyDetails;
         }
     }
 }

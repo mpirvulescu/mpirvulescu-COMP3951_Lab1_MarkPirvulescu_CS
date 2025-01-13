@@ -7,70 +7,78 @@ namespace InvestmentCalculator
     {
 
         Investment myInvestment;
-        string errorMessagesInitialInvestmentBox;
-        string errorMessageRateOfGrowthBox;
-        string errorMessageYearsOfGrowthBox;
+        string errorMessagesInitialInvestmentBox = "";
+        string errorMessageRateOfGrowthBox = "";
+        string errorMessageYearsOfGrowthBox = "";
+        string errorMessageInflationAdjustmentBox = "";
 
         public Form1()
         {
             InitializeComponent();
             Initialize_Error_Messages();
-            this.myInvestment = new Investment(0, 0, 0);
+            this.myInvestment = new Investment(0, 0, 0, 0);
             Center_Control(label1);
             Center_Control(label2);
             Center_Control(label3);
+            Center_Control(label4);
             Center_Control(Initial_Investment_Box);
             Center_Control(Rate_Of_Growth_Box);
             Center_Control(Years_Of_Growth_Box);
             Center_Control(Calculate_Button);
+            Center_Control(Inflation_Adjustment_Box);
         }
 
         private void Form1_Activate(object sender, EventArgs e)
         {
-        }
-
-        public virtual void OnShown(EventArgs e)
-        {
-            Initialize_Error_Messages();
-            this.myInvestment = new Investment(0, 0, 0);
+            // Reset fields
             Initial_Investment_Box.Text = "";
             Rate_Of_Growth_Box.Text = "";
             Years_Of_Growth_Box.Text = "";
+            Inflation_Adjustment_Box.Text = "";
+
+            // Reset error messages
+            Initialize_Error_Messages();
+
+            // Reset investment object
+            this.myInvestment = new Investment(0, 0, 0, 0);
         }
+
+        //public virtual void OnShown(EventArgs e)
+        //{
+        //    Initialize_Error_Messages();
+        //    this.myInvestment = new Investment(0, 0, 0);
+        //    Initial_Investment_Box.Text = "";
+        //    Rate_Of_Growth_Box.Text = "";
+        //    Years_Of_Growth_Box.Text = "";
+        //}
 
         private void Initial_Investment_Box_Leave(object sender, EventArgs e)
         {
-            //if (e.KeyChar == '\r' || e.KeyChar == '\n')
+            double parsedValue;
+            bool isValid = Double.TryParse(Initial_Investment_Box.Text, out parsedValue);
+            if (isValid)
             {
-                double parsedValue;
-                bool isValid = Double.TryParse(Initial_Investment_Box.Text, out parsedValue);
-                if (isValid)
-                {
-                    myInvestment.InitialInvestment = parsedValue;
-                    errorMessagesInitialInvestmentBox = "";
-                }
-                else
-                {
-                    errorMessagesInitialInvestmentBox = "Initial Investment must be a positive number.\n";
-                }
+                myInvestment.InitialInvestment = parsedValue;
+                errorMessagesInitialInvestmentBox = "";
+            }
+            else
+            {
+                errorMessagesInitialInvestmentBox = "Initial Investment must be a positive number.\n";
             }
         }
 
         private void Rate_Of_Growth_Box_Leave(object sender, EventArgs e)
         {
-            //if (e.KeyChar == '\r' || e.KeyChar == '\n')
+            double parsedValue;
+            bool isValid = Double.TryParse(Rate_Of_Growth_Box.Text, out parsedValue);
+            if (isValid)
             {
-                double parsedValue;
-                bool isValid = Double.TryParse(Rate_Of_Growth_Box.Text, out parsedValue);
-                if (isValid)
-                {
-                    myInvestment.RateOfGrowth = parsedValue;
-                    errorMessageRateOfGrowthBox = "";
-                }
-                else
-                {
-                    errorMessageRateOfGrowthBox = "Rate of Growth must be between 0 and 100.\n";
-                }
+                myInvestment.RateOfGrowth = parsedValue;
+                errorMessageRateOfGrowthBox = "";
+            }
+            else
+            {
+                errorMessageRateOfGrowthBox = "Rate of Growth must be between 0 and 100.\n";
             }
         }
 
@@ -94,7 +102,12 @@ namespace InvestmentCalculator
 
         private void Calculate_Button_Click(object sender, EventArgs e)
         {
-            string errorMessages = errorMessagesInitialInvestmentBox + errorMessageRateOfGrowthBox + errorMessageYearsOfGrowthBox;
+            string errorMessages = 
+                errorMessagesInitialInvestmentBox +
+                errorMessageRateOfGrowthBox +
+                errorMessageYearsOfGrowthBox +
+                errorMessageInflationAdjustmentBox;
+
             if (!string.IsNullOrEmpty(errorMessages))
             {
                 MessageBox.Show(errorMessages, "Input Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -110,6 +123,10 @@ namespace InvestmentCalculator
                 {
                     Years_Of_Growth_Box.Text = "";
                 }
+                if (!string.IsNullOrEmpty(errorMessageInflationAdjustmentBox))
+                {
+                    Inflation_Adjustment_Box.Text = "";
+                }
                 return;
             }
             else
@@ -119,9 +136,6 @@ namespace InvestmentCalculator
                 Hide();
             }
         }
-
-        
-
         private void Center_Control(Control control)
         {
             int parentWidth = this.ClientSize.Width;
@@ -133,9 +147,25 @@ namespace InvestmentCalculator
 
         private void Initialize_Error_Messages()
         {
-             errorMessagesInitialInvestmentBox = "Please enter the investment value\n";
-             errorMessageRateOfGrowthBox = "Please enter a value for the rate of growth\n";
-             errorMessageYearsOfGrowthBox = "Please enter a value for the number of years\n";
+            errorMessagesInitialInvestmentBox = "Please enter a value for the initial investment\n";
+            errorMessageRateOfGrowthBox = "Please enter a value for the rate of growth\n";
+            errorMessageYearsOfGrowthBox = "Please enter a value for the number of years\n";
+            errorMessageInflationAdjustmentBox = "Please enter a value for the inflation rate";
         }
-    }  
+
+        private void Inflation_Adjustment_Box_Leave(object sender, EventArgs e)
+        {
+            double parsedValue;
+            bool isValid = Double.TryParse(Inflation_Adjustment_Box.Text, out parsedValue);
+            if (isValid)
+            {
+                myInvestment.InflationRate = parsedValue;
+                errorMessageInflationAdjustmentBox = "";
+            }
+            else
+            {
+                errorMessageInflationAdjustmentBox = "Inflation rate must be between 0 and 100%.\n";
+            }
+        }
+    }
 }
