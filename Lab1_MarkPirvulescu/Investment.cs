@@ -93,13 +93,10 @@ namespace InvestmentCalculator
             double currentInvestment = InitialInvestment;
             for (int year = 1; year <= YearsOfGrowth; year++)
             {
-                // Calculate the nominal investment value for this year (Compound interest formula)
                 currentInvestment += currentInvestment * (RateOfGrowth / 100);
 
-                // Calculate the inflation-adjusted value after growth for this year
                 double inflationAdjustedValue = currentInvestment / Math.Pow(1 + InflationRate / 100, year);
 
-                // Add the year, investment value, and inflation-adjusted value to the list
                 yearlyDetails.Add((year, currentInvestment, inflationAdjustedValue));
             }
 
