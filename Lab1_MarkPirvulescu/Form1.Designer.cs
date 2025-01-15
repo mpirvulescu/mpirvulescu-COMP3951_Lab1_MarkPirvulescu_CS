@@ -55,7 +55,7 @@
             label2.Name = "label2";
             label2.Size = new Size(301, 15);
             label2.TabIndex = 2;
-            label2.Text = "Enter the rate at which this index is supposed to grow at";
+            label2.Text = "Enter the percentage rate at which this index is supposed to grow at";
             // 
             // Rate_Of_Growth_Box
             // 
